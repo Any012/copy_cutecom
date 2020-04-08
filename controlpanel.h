@@ -15,6 +15,8 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
+#include "settings.h"
+
 class ControlPanel : public QFrame
 {
     Q_OBJECT
@@ -24,7 +26,7 @@ class ControlPanel : public QFrame
 signals:
     void openDeviceClicked();
     void closeDeviceClicked();
-    void settingChanged();
+    void settingChanged(Settings::Options option, QVariant setting);
 
 public:
     explicit ControlPanel(QWidget *parent = nullptr);
@@ -35,16 +37,15 @@ public:
     void initSerial();
     void initConnections();
 
-    int hiddenHeight();
-    void collapse();
-    void resize(int w, int h);
-    void slideOut();
-    void fillDeviceCombo(const QString &deviceName);
-    void closeDevice();
-    void toggleDevice();
+    void closeDevice()
+    {
+        toggleDevice(false);
+        btnPort->setChecked(false);
+    }
 
 private:
     void chooseLogFile();
+    void toggleDevice(bool open);
     
     QPushButton *btnPort;
     QPushButton *btnLog;

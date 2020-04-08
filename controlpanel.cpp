@@ -15,6 +15,7 @@ ControlPanel::~ControlPanel()
 void ControlPanel::createItems()
 {
     btnPort = new QPushButton(tr("打开"));
+    btnPort->setCheckable(true);
     btnLog = new QPushButton("...");
     btnLog->setMaximumWidth(30);
 
@@ -38,9 +39,11 @@ void ControlPanel::createItems()
     chkCharacters = new QCheckBox(tr("显示控制字符"));
     chkTimestamp = new QCheckBox(tr("显示时间戳"));
     chkRTS = new QCheckBox("RTS");
+    chkRTS->setEnabled(false);
     chkDTR = new QCheckBox("DTR");
     chkReconnect = new QCheckBox(tr("自动重连"));
     chkAppend = new QCheckBox("Append");
+    chkDTR->setEnabled(false);
 
     lntLog = new QLineEdit("");
     lntLog->setMaximumWidth(100);
@@ -169,7 +172,30 @@ void ControlPanel::chooseLogFile()
 void ControlPanel::initConnections()
 {
     connect(btnPort, &QPushButton::clicked, this, &ControlPanel::toggleDevice);
+    connect(chkCharacter, &QCheckBox::toggled, [=](bool checked){emit settingChanged(Settings::ShowCtrlCharacters, checked);});
+    connect(chkTimestamp, &QCheckBox::toggled, [=](bool checked){emit settingChanged(Settings::ShowTimestamp, checked);});
+    connect(chkReconnect, &QCheckBox::toggled, [=](bool checked){emit settingChanged(Settings::Reconnect, checked);});
+    connect(this, &CtronlPanel::settingChanged, settings, &Settings::settingChanged);
 }
 
-void ControlPanel::toggleDevice()
-{}
+void ControlPanel::toggleDevice(bool open)
+{
+    if(open)
+    {
+        btnPort->setText(tr("关闭"));
+        chkRTS->setEnabled(true);
+        chkDTR->setEnabled(true);
+        tabPanel->setEnabled(false);
+
+        emit openDeviceClicked();
+    }
+    else
+    {
+        btnPort->setText(tr("打开"));
+        chkRTS->setEnabled(false);
+        chkDTR->setEnabled(false);
+        tabPanel->setEnabled(true);
+
+        emit closeDeviceClicked();
+    }
+}

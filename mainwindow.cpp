@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     createItems();
     initUI();
     initSerial();
+    initConnections();
 }
 
 MainWindow::~MainWindow()
@@ -95,3 +96,15 @@ void MainWindow::initSerial()
     cmbBaud->insertSeparator(90);
     cmbBaud->addItem(QStringLiteral("Custom"), -1);
 }
+
+void MainWindow::initConnections(void)
+{
+    connect(controlPanel, &ControlPanel::openDeviceClicked, this, &MainWindow::openDevice);
+    connect(controlPanel, &ControlPanel::closeDeviceClicked, this, &MainWindow::closeDevice);
+}
+
+void MainWindow::openDevice(void)
+{}
+
+void MainWindow::closeDevice(void)
+{}

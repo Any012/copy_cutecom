@@ -31,7 +31,9 @@ private:
     void createItems();
     void initUI();
     void initSerial();
-
+    void initConnections();
+    void openDevice();
+    void closeDevice();
 
     QMenuBar *menuBar;
 
