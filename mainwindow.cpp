@@ -13,24 +13,18 @@ MainWindow::~MainWindow()
 
 void MainWindow::createItems()
 {    
-    btnSend = new QPushButton(tr("发送"));
     btnPort = new QPushButton(tr("打开"));
     btnSendFile = new QPushButton(tr("发送文件"));
     btnClear = new QPushButton(tr("清除"));
 
-    lblPort = new QLabel(tr("串口"));
     lblInput = new QLabel(tr("输入"));
     lblDelay = new QLabel(tr("延时"));
     lblLog = new QLabel(tr("某位置"));
     
-    cmbPort = new QComboBox();
     cmbBaud = new QComboBox();
     cmbInput = new QComboBox();
     cmbPlain = new QComboBox();
 
-    chkRTS = new QCheckBox("RTS");
-    chkDTR = new QCheckBox("DTR");
-    chkReconnect = new QCheckBox(tr("自动重连"));
     chkHexOut = new QCheckBox(tr("Hex输出"));
     chkLog = new QCheckBox(tr("记录到:"));
 
@@ -42,7 +36,7 @@ void MainWindow::createItems()
     txtInput = new QTextEdit();
     txtOutput = new QTextEdit();
 
-
+    controlPanel = new ControlPanel(this);
 }
 
 void MainWindow::initUI()
@@ -52,20 +46,11 @@ void MainWindow::initUI()
     wdtInput = new QWidget();
     wdtOutput = new QWidget();
 
-    hbxPort = new QHBoxLayout();
     hbxInput = new QHBoxLayout();
     hbxOutput = new QHBoxLayout();
 
     vbxInput = new QVBoxLayout();
     vbxOutput = new QVBoxLayout();
-
-    hbxPort->addWidget(btnPort);
-    hbxPort->addWidget(lblPort);
-    hbxPort->addWidget(cmbPort);
-    hbxPort->addWidget(cmbBaud);
-    hbxPort->addWidget(chkRTS);
-    hbxPort->addWidget(chkDTR);
-    hbxPort->addWidget(chkReconnect);
 
     hbxInput->addWidget(lblInput);
     hbxInput->addWidget(lntInput);
@@ -80,7 +65,7 @@ void MainWindow::initUI()
     hbxOutput->addWidget(chkLog);
     hbxOutput->addWidget(lblLog);
 
-    vbxInput->addLayout(hbxPort);
+    vbxInput->addWidget(controlPanel);
     vbxInput->addWidget(txtInput);
     vbxInput->addLayout(hbxInput);
 

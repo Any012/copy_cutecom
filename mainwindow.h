@@ -18,6 +18,8 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 
+#include "controlpanel.h"
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -40,24 +42,18 @@ private:
     QWidget *wdtInput;
     QWidget *wdtOutput;
 
-    QPushButton *btnSend;
     QPushButton *btnClear;
     QPushButton *btnPort;
     QPushButton *btnSendFile;
 
-    QLabel *lblPort;
     QLabel *lblInput;
     QLabel *lblDelay;
     QLabel *lblLog;
 
-    QComboBox *cmbPort;
     QComboBox *cmbInput;
     QComboBox *cmbPlain;
     QComboBox *cmbBaud;
 
-    QCheckBox *chkRTS;
-    QCheckBox *chkDTR;
-    QCheckBox *chkReconnect;
     QCheckBox *chkHexOut;
     QCheckBox *chkLog;
 
@@ -68,11 +64,12 @@ private:
     QTextEdit *txtInput;
     QTextEdit *txtOutput;
 
-    QHBoxLayout *hbxPort;
     QHBoxLayout *hbxInput;
     QHBoxLayout *hbxOutput;
     QVBoxLayout *vbxInput;
     QVBoxLayout *vbxOutput;
+
+    ControlPanel *controlPanel;
 };
 
 #endif

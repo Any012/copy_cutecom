@@ -4,7 +4,7 @@
 QT += widgets serialport
 
 TEMPLATE = app
-TARGET = copy_cutecom
+TARGET = fake_cutecom
 INCLUDEPATH += .
 
 # Input

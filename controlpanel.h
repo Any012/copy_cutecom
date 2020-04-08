@@ -33,6 +33,7 @@ public:
     void createItems();
     void initLayout();
     void initSerial();
+    void initConnections();
 
     int hiddenHeight();
     void collapse();
@@ -40,6 +41,7 @@ public:
     void slideOut();
     void fillDeviceCombo(const QString &deviceName);
     void closeDevice();
+    void toggleDevice();
 
 private:
     void chooseLogFile();
@@ -69,6 +71,7 @@ private:
     QCheckBox *chkAppend;
     QCheckBox *chkRTS;
     QCheckBox *chkDTR;
+    QCheckBox *chkReconnect;
 
     QLineEdit *lntLog;
 

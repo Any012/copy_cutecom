@@ -6,6 +6,7 @@ ControlPanel::ControlPanel(QWidget *parent) : QFrame(parent)
     createItems();
     initLayout();
     initSerial();
+    initConnections();
 }
 
 ControlPanel::~ControlPanel()
@@ -38,6 +39,7 @@ void ControlPanel::createItems()
     chkTimestamp = new QCheckBox(tr("显示时间戳"));
     chkRTS = new QCheckBox("RTS");
     chkDTR = new QCheckBox("DTR");
+    chkReconnect = new QCheckBox(tr("自动重连"));
     chkAppend = new QCheckBox("Append");
 
     lntLog = new QLineEdit("");
@@ -88,7 +90,9 @@ void ControlPanel::initLayout()
     hbxPanel->addWidget(cmbPort);
     hbxPanel->addWidget(chkRTS);
     hbxPanel->addWidget(chkDTR);
-    hbxPanel->addWidget(tabPanel);
+    hbxPanel->addWidget(chkReconnect);
+    hbxPanel->addStretch();
+//    hbxPanel->addWidget(tabPanel);
 
     vbxPanel->addWidget(tabPanel);
     vbxPanel->addLayout(hbxPanel);
@@ -155,10 +159,17 @@ void ControlPanel::initSerial()
 
 void ControlPanel::chooseLogFile()
 {
-//    QString logFile;
     QString logFile = QFileDialog::getSaveFileName(this, tr("保存记录到..."), lntLog->text());
     if(!logFile.isEmpty())
     {
         lntLog->setText(logFile);
     }
 }
+
+void ControlPanel::initConnections()
+{
+    connect(btnPort, &QPushButton::clicked, this, &ControlPanel::toggleDevice);
+}
+
+void ControlPanel::toggleDevice()
+{}
